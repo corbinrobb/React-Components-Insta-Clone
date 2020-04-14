@@ -6,15 +6,26 @@ import "./Posts.css";
 import dummyData from '../../dummy-data';
 // import data 
 
-const PostsPage = () => {
+const PostsPage = (props) => {
   // set up state for your data
   const [ posts, setPosts ] = useState(dummyData);
+
+  const filterPosts = () => {
+    return posts.filter(post => {
+      if(!props.searchTerm) {
+        return post;
+      }
+      if(post.username.toLowerCase().includes(props.searchTerm.toLowerCase())) {
+        return post;
+      }
+    });
+  }
 
   return (
     <div className="posts-container-wrapper">
       {/* map through data here to return a Post and pass data as props to Post */}
-      { posts.map(post => {
-        return <Post post={post} />
+      { filterPosts().map((post, i) => {
+        return <Post key={post.username + i} post={post} />
       }) }
     </div>
   );

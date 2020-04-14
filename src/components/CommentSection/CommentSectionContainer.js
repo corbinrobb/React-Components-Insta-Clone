@@ -11,8 +11,8 @@ const CommentSection = props => {
 
   return (
     <div>
-      {comments.map(comment => {
-        return <Comment comment={comment} />
+      {comments.map((comment, i) => {
+        return <Comment key={comment.username + i} comment={comment} />
       })}
       <CommentInput comment={newComment} setNewComment={setNewComment} submitComment={() => {
           setComments([...comments,  newComment]);
